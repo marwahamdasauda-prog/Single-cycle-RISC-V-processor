@@ -12,7 +12,7 @@ module Program_counter(clk, reset, PC_in, PC_out);
     end
 endmodule
 
-// ---------------- PC + 4
+// PC + 4
 module PCplus4(fromPC, nextopc);
     input  [31:0] fromPC;
     output [31:0] nextopc;
@@ -27,7 +27,7 @@ module adder32(a, b, y);
 endmodule
 
 //Instruction memory
-//t.
+
 module Instruction_mem(reset, read_address, instruction_out);
     input reset;
     input  [31:0] read_address;
@@ -52,7 +52,7 @@ module Instruction_mem(reset, read_address, instruction_out);
     assign instruction_out = I_Mem[read_address[7:2]];
 endmodule
 
-// ---------------- Register file ----------------
+//  Register file
 module reg_file(clk, reset, reg_write, rs1, rs2, rd, write_data, read_data1, read_data2);
     input clk, reset, reg_write;
     input [4:0] rs1, rs2, rd;
@@ -90,8 +90,7 @@ module immgen(opcode, instruction, immext);
     end
 endmodule
 
-// ---------------- Main control ----------------
-// FIX: outputs must be reg, use blocking assignments in combinational logic,
+//  Main control 
 
 module control_unit(instruction, branch, memread, memtoreg, aluop, memwrite, alusrc, regwrite);
     input [6:0] instruction;
@@ -128,7 +127,7 @@ module alu_unit(A, B, control_in, alu_result, zero);
 endmodule
 
 // //alucontrol
-// func7 is only instruction[30] (the add/sub distinguisher).
+// func7 is only instruction[30] (the add/sub distinguisher)
 module alu_control(aluop, func7, func3, control_out);
     input func7;
     input [2:0] func3;
@@ -201,7 +200,7 @@ module Riscv(clk, reset);
 
     immgen IG (.opcode(instr[6:0]), .instruction(instr), .immext(imm));
 
-    adder32 BADD (.a(pc), .b(imm), .y(branch_target));   // imm already includes the <<1
+    adder32 BADD (.a(pc), .b(imm), .y(branch_target));   
     mux2 PCMUX (.a(pc_plus4), .b(branch_target), .sel(pcsrc), .y(pc_next));
 
     mux2 ALUSRC (.a(rd2), .b(imm), .sel(alusrc), .y(alu_b));
