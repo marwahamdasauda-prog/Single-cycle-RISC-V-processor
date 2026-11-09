@@ -12,7 +12,7 @@ module riscv_tb;
             dut.RF.register[1], dut.RF.register[2], dut.RF.register[3],
             dut.RF.register[4], dut.RF.register[5], dut.RF.register[6],
             dut.RF.register[7]);
-        // Expected: x1=5 x2=3 x3=8 x4=2 x5=8 x6=0 x7=2
+    
         $finish;
     end
 endmodule
